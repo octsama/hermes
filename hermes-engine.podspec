@@ -13,7 +13,7 @@ Pod::Spec.new do |spec|
   # This must be consistent with the release_version in:
   # - android/build.gradle
   # - npm/package.json
-  # - CMakeLists.txt 
+  # - CMakeLists.txt
   spec.version     = "0.9.0"
   spec.summary     = "Hermes is a small and lightweight JavaScript engine optimized for running React Native."
   spec.description = "Hermes is a JavaScript engine optimized for fast start-up of React Native apps. It features ahead-of-time static optimization and compact bytecode."
@@ -24,7 +24,7 @@ Pod::Spec.new do |spec|
   # The podspec would be serialized to JSON and people will download prebuilt binaries instead of the source.
   # TODO(use the hash field as a validation mechanism when the process is stable)
   spec.source      = ENV['hermes-artifact-url'] ? { http: ENV['hermes-artifact-url'] } : { git: "https://github.com/facebook/hermes.git", tag: "v#{spec.version}" }
-  spec.platforms   = { :osx => "10.13", :ios => "11.0" }
+  spec.platforms   = { :ios => "11.0" }
 
   spec.preserve_paths      = ["destroot/bin/*"].concat(HermesHelper::BUILD_TYPE == :debug ? ["**/*.{h,c,cpp}"] : [])
   spec.source_files        = "destroot/include/**/*.h"
@@ -40,12 +40,8 @@ Pod::Spec.new do |spec|
       # When true, debug build will be used.
       # See `build-apple-framework.sh` for details
       DEBUG=#{HermesHelper::BUILD_TYPE == :debug}
-
       # Build iOS framework
       ./utils/build-ios-framework.sh
-
-      # Build Mac framework
-      ./utils/build-mac-framework.sh
     EOS
   end
 end
